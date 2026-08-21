@@ -1,0 +1,87 @@
+/* assets/components/button/button.css — komponenta: kruhové neomorfní tlačítko */
+
+.calc-btn {
+  min-width: 0;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: var(--radius-btn);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-light);
+  color: var(--text-light);
+  box-shadow: var(--shadow-out);
+  font-size: calc(24px * var(--font-scale));
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform .18s var(--ease),
+    box-shadow .22s ease,
+    background .25s ease,
+    color .25s ease;
+  animation: btnPop .5s var(--ease) both;
+}
+
+@keyframes btnPop {
+  from { opacity: 0; transform: scale(.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Stavy */
+.calc-btn:hover { transform: translateY(-2px) scale(1.03); }
+.calc-btn:active {
+  transform: translateY(2px) scale(.94);
+  box-shadow: var(--shadow-in);
+  transition-duration: .08s;
+}
+.calc-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+
+/* Varianty */
+.calc-btn.utility { color: var(--color-primary); }
+
+.calc-btn.operator {
+  background: color-mix(in srgb, var(--surface-light) 86%, #cbd2dc 14%);
+}
+
+.calc-btn.equal {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--color-primary) 34%, transparent);
+  animation: btnPop .5s var(--ease) both, glowPulse 3.2s ease-in-out .6s infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 10px 22px color-mix(in srgb, var(--color-primary) 30%, transparent); }
+  50%      { box-shadow: 0 12px 30px color-mix(in srgb, var(--color-primary) 50%, transparent); }
+}
+
+/* Nula — pilulka přes dva sloupce */
+.calc-btn.zero {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  justify-content: flex-start;
+  padding-left: 30px;
+  border-radius: 999px;
+}
+
+/* Miniatura v náhledu nastavení */
+.preview-grid .calc-btn {
+  width: 48px;
+  aspect-ratio: 1;
+  font-size: calc(16px * var(--font-scale));
+  animation: none;
+}
+
+/* Tmavé téma */
+body[data-theme="dark"] .calc-btn {
+  background: var(--surface-dark);
+  color: var(--text-dark);
+  box-shadow: -7px -7px 16px rgba(255, 255, 255, .025), 7px 7px 16px rgba(0, 0, 0, .36);
+}
+
+body[data-theme="dark"] .calc-btn.operator { background: #20242d; }
+
+body[data-theme="dark"] .calc-btn.equal {
+  background: var(--color-primary);
+  color: #fff;
+}
